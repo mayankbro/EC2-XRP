@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  trading-bot:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: xrp_liquidity_bot
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    volumes:
+      - ../data:/app/data
+      - ../production/ml:/app/production/ml
+      - ../logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
